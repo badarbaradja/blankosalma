@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blanko Penilaian - UIN Raden Fatah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f3f4f6;
+        }
+
+        /* Styling for editable elements to give a subtle hint when hovering */
+        .editable {
+            transition: all 0.2s ease;
+            border-radius: 2px;
+        }
+        .editable:hover {
+            background-color: #e5e7eb;
+            cursor: text;
+            box-shadow: 0 0 0 2px #d1d5db;
+        }
+        .editable:focus {
+            background-color: #dbeafe;
+            outline: none;
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+
+        /* Print styles to ensure it looks perfect on paper or PDF */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0; /* Menghilangkan URL dan Tanggal bawaan browser */
+            }
+            body {
+                background-color: white;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: block !important; /* Menghindari bug flexbox yang memotong halaman saat print */
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .print-container {
+                box-shadow: none !important;
+                width: 210mm !important;
+                height: 297mm !important; /* Kunci tepat di ukuran 1 kertas A4 */
+                padding: 15mm 20mm !important; /* Bantalan aman di dalam kertas */
+                margin: 0 !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important; /* Paksa agar tidak ada halaman 2 yang bocor */
+                page-break-after: avoid !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .editable:hover, .editable:focus {
+                background-color: transparent;
+                box-shadow: none;
+            }
+            
+            /* -- Memampatkan spasi secara otomatis khusus saat di-print -- */
+            .mb-8 { margin-bottom: 0.5rem !important; }
+            .mb-6 { margin-bottom: 0.5rem !important; }
+            .mb-4 { margin-bottom: 0.25rem !important; }
+            .mt-2 { margin-top: 0 !important; }
+            .mb-10 { margin-bottom: 0.5rem !important; }
+            .mb-16 { margin-bottom: 1.5rem !important; } /* Tanda tangan ditarik ke atas */
+            .pb-4 { padding-bottom: 0.5rem !important; }
+            .py-2 { padding-top: 0.15rem !important; padding-bottom: 0.15rem !important; } /* Tabel dirapatkan */
+            .py-1 { padding-top: 0.1rem !important; padding-bottom: 0.1rem !important; }
+            
+            /* Mengecilkan font sedikit agar pasti muat 1 halaman */
+            .text-xl { font-size: 1.05rem !important; }
+            .text-lg { font-size: 0.95rem !important; }
+            .text-base { font-size: 0.9rem !important; }
+            .text-sm { font-size: 0.8rem !important; }
+        }
+    </style>
+</head>
+<body class="py-10 flex flex-col items-center min-h-screen">
+
+    <!-- Action Buttons (Won't show when printing) -->
+    <div class="mb-6 flex gap-4 no-print">
+        <button onclick="window.print()" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" />
+            </svg>
+            Cetak / Simpan PDF
+        </button>
+        <div class="px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg text-sm flex items-center shadow-sm">
+            💡 Tips: Klik teks atau angka mana saja pada dokumen untuk mengedit isinya secara langsung!
+        </div>
+    </div>
+
+    <!-- Main Document Container -->
+    <div class="bg-white w-full max-w-[210mm] min-h-[297mm] p-[20mm] shadow-2xl print-container relative mx-auto box-border">
+        
+        <!-- Kop Surat (Header) -->
+        <div class="border-b-[3px] border-black pb-4 mb-6 flex items-center justify-between">
+            <!-- Logo UI (Class no-print sudah dihapus agar ikut tercetak) -->
+            <div class="w-24 h-24 flex items-center justify-center">
+                <img src="ui logo.png" alt="Logo UI" class="max-w-full max-h-full object-contain">
+            </div>
+            
+            <div class="flex-1 text-center px-4">
+                <div class="text-xl font-bold">UNIVERSITAS INDONESIA</div>
+                <div class="text-lg font-bold">FAKULTAS KESEHATAN MASYARAKAT</div>
+                <div class="text-sm mt-1">Gedung Dekanat Fakultas Kesehatan Masyarakat Kampus UI Depok 16424, T. 62.21.7864975, 7864976 F. 62.21.7864975, 7863472 E. fkmui@ui.ac.id | www.fkm.ui.ac.id</div>
+            </div>
+            
+            <div class="w-24"></div> <!-- Balancing spacer for layout -->
+        </div>
+
+        <!-- Title -->
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-bold underline">BLANKO PENILAIAN</h2>
+        </div>
+
+        <!-- Student Information -->
+        <table class="w-full mb-6 text-base">
+            <tbody>
+                <tr>
+                    <td class="w-[30%] py-1">Nama</td>
+                    <td class="w-[2%]">:</td>
+                    <td class="w-[68%] font-bold editable" contenteditable="true">Salmahita Ataya Pradilla</td>
+                </tr>
+                <tr>
+                    <td class="py-1">NPM</td>
+                    <td>:</td>
+                    <td class="editable" contenteditable="true">2306274586</td>
+                </tr>
+                <tr>
+                    <td class="py-1">Program Studi</td>
+                    <td>:</td>
+                    <td class="editable" contenteditable="true">Sarjana Kesehatan Masyarakat</td>
+                </tr>
+                <tr>
+                    <td class="py-1">Lokasi Kegiatan</td>
+                    <td>:</td>
+                    <td class="font-bold editable" contenteditable="true">DPR RI FRAKSI NASDEM</td>
+                </tr>
+                <tr>
+                    <td class="py-1">Waktu Pelaksanaan</td>
+                    <td>:</td>
+                    <td class="editable" contenteditable="true">05 Januari 2025 s/d 05 Februari 2025</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Assessment Table -->
+        <div class="text-center mb-4 mt-2">
+            <h3 class="text-lg font-bold">Tabel Penilaian Magang (Self Assessment)</h3>
+        </div>
+        <table class="w-full border-collapse border border-black mb-4 text-center">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-black py-2 px-2 w-[5%]">No</th>
+                    <th class="border border-black py-2 px-2 w-[25%]">Aspek Penilaian</th>
+                    <th class="border border-black py-2 px-2 w-[55%]">Deskripsi Singkat</th>
+                    <th class="border border-black py-2 px-2 w-[15%]">Nilai (1–100)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border border-black py-2">1</td>
+                    <td class="border border-black py-2 text-left px-3 font-semibold">Kerjasama Tim</td>
+                    <td class="border border-black py-2 text-left px-3 text-sm">Kemampuan bekerja sama, komunikasi, dan kontribusi dalam tim</td>
+                    <td class="border border-black py-2 font-bold editable" contenteditable="true">100</td>
+                </tr>
+                <tr>
+                    <td class="border border-black py-2">2</td>
+                    <td class="border border-black py-2 text-left px-3 font-semibold">Kreativitas</td>
+                    <td class="border border-black py-2 text-left px-3 text-sm">Kemampuan menghasilkan ide baru dan solusi dalam pekerjaan</td>
+                    <td class="border border-black py-2 font-bold editable" contenteditable="true">100</td>
+                </tr>
+                <tr>
+                    <td class="border border-black py-2">3</td>
+                    <td class="border border-black py-2 text-left px-3 font-semibold">Konsistensi</td>
+                    <td class="border border-black py-2 text-left px-3 text-sm">Konsistensi dalam kinerja, disiplin, dan menjaga kualitas kerja</td>
+                    <td class="border border-black py-2 font-bold editable" contenteditable="true">100</td>
+                </tr>
+                <tr>
+                    <td class="border border-black py-2">4</td>
+                    <td class="border border-black py-2 text-left px-3 font-semibold">Time Management</td>
+                    <td class="border border-black py-2 text-left px-3 text-sm">Kemampuan mengatur waktu, menyelesaikan tugas tepat deadline</td>
+                    <td class="border border-black py-2 font-bold editable" contenteditable="true">100</td>
+                </tr>
+                <tr>
+                    <td class="border border-black py-2">5</td>
+                    <td class="border border-black py-2 text-left px-3 font-semibold">Inovasi</td>
+                    <td class="border border-black py-2 text-left px-3 text-sm">Kemampuan mengembangkan ide/pendekatan baru yang berdampak</td>
+                    <td class="border border-black py-2 font-bold editable" contenteditable="true">100</td>
+                </tr>
+                <tr>
+                    <td class="border border-black py-2 font-bold text-center" colspan="3">Jumlah Nilai Rata-rata</td>
+                    <td class="border border-black py-2 font-bold text-lg bg-gray-50 editable" contenteditable="true">100</td>
+                </tr>
+                <tr>
+                    <td class="border border-black py-2 font-bold text-center" colspan="3">Huruf Mutu</td>
+                    <td class="border border-black py-2 font-bold text-lg bg-gray-50 text-blue-700 editable" contenteditable="true">A</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Grading Legend -->
+        <div class="mb-8 w-1/2">
+            <h4 class="font-bold underline mb-2">Skala Penilaian:</h4>
+            <table class="w-full text-sm border-collapse border border-black">
+                <tbody>
+                    <tr><td class="border border-black px-2 py-1 text-center w-24 font-bold">90-100</td><td class="border border-black px-2 py-1">Sangat Baik</td></tr>
+                    <tr><td class="border border-black px-2 py-1 text-center font-bold">80-89</td><td class="border border-black px-2 py-1">Baik</td></tr>
+                    <tr><td class="border border-black px-2 py-1 text-center font-bold">70-79</td><td class="border border-black px-2 py-1">Cukup</td></tr>
+                    <tr><td class="border border-black px-2 py-1 text-center font-bold">&lt;70</td><td class="border border-black px-2 py-1">Perlu Perbaikan</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Signature Section -->
+        <div class="flex justify-end">
+            <div class="text-center w-72">
+                <p class="mb-1">Depok, <span class="editable" contenteditable="true">9 April 2026</span></p>
+                <p class="mb-16">Wakil Dekan Bidang Pendidikan, Penelitian, dan Kemahasiswaan,</p>
+                
+                <p class="font-bold underline editable" contenteditable="true">Dr. Ir. Asih Setiarini, M.Sc.</p>
+                <p>NIP. <span class="editable" contenteditable="true">196905211993032001</span></p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
